@@ -19,8 +19,7 @@ const {rateLimitChecker} = require('../lib/utils/rateLimiter')
 
 app.use(cors(
   {
-    origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    origin: process.env.ClIENT_URI,
     credentials: true,            
   }
 ))
