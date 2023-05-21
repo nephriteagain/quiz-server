@@ -16,6 +16,10 @@ require('./db/index')
 
 const {rateLimitChecker} = require('../lib/utils/rateLimiter')
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', process.env.ClIENT_URI);
+  next();
+});
 
 app.use(cors(
   {
