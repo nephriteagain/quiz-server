@@ -17,12 +17,13 @@ require('./db/index')
 const {rateLimitChecker} = require('../lib/utils/rateLimiter')
 
 
-// app.use(cors(
-//   {
-//     origin: process.env.ClIENT_URI,
-//     credentials: true,            
-//   }
-// ))
+app.use(cors(
+  {
+    origin: process.env.ClIENT_URI,
+    credentials: true,
+    methods: 'GET,POST,PUT,DELETE'
+  }
+))
 
 
 app.use(express.json())
