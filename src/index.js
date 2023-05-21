@@ -16,17 +16,13 @@ require('./db/index')
 
 const {rateLimitChecker} = require('../lib/utils/rateLimiter')
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://quizzle-createandsolvequizzes.netlify.app');
-  next();
-});
 
-app.use(cors(
-  {
-    origin: process.env.ClIENT_URI,
-    credentials: true,            
-  }
-))
+// app.use(cors(
+//   {
+//     origin: process.env.ClIENT_URI,
+//     credentials: true,            
+//   }
+// ))
 
 
 app.use(express.json())
