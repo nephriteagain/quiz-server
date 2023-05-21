@@ -11,17 +11,12 @@ const ProfileRouter = require('./routes/v1/profile')
 const ResetRouter = require('./routes/v1/reset')
 
 const app = express()
-const PORT = "3000"
+const PORT =  process.env.PORT || "3000"
 require('./db/index')
 
 const {rateLimitChecker} = require('../lib/utils/rateLimiter')
 
-app.use(cors(
-  {
-    origin: process.env.ClIENT_URI,
-    credentials: true
-  }
-))
+app.use(cors())
 
 
 app.use(express.json())
