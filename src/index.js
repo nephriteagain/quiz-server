@@ -18,19 +18,19 @@ require('./db/index')
 
 const {rateLimitChecker} = require('../lib/utils/rateLimiter')
 
-app.use((req, res, next ) => {
-  req.headers['access-control-allow-origin'] = '*'
-  req.headers['access-control-allow-credentials'] = true
-  req.headers['access-control-allow-headers'] = '*'
-  req.headers['access-control-allow-methods'] = '*'
-  req.headers['access-control-expose-headers'] = '*'
-  next()
-})
+// app.use((req, res, next ) => {
+//   req.headers['access-control-allow-origin'] = '*'
+//   req.headers['access-control-allow-credentials'] = true
+//   req.headers['access-control-allow-headers'] = '*'
+//   req.headers['access-control-allow-methods'] = '*'
+//   req.headers['access-control-expose-headers'] = '*'
+//   next()
+// })
 
 
 app.use(cors(
   {
-    origin: '*',
+    origin: 'https://render.com',
     credentials: true,
     methods: '*'
   }
