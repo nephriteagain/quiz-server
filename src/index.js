@@ -14,12 +14,18 @@ const app = express()
 const PORT =  process.env.PORT || "3000"
 require('./db/index')
 
-const {rateLimitChecker} = require('../lib/utils/rateLimiter')
-
 app.use((req, res, next ) => {
   req.headers['access-control-allow-origin'] = process.env.ClIENT_URI
+  req.headers['access-control-allow-credentials'] = true
+  req.headers['access-control-allow-headers'] = '*'
+  req.headers['access-control-allow-methods'] = '*'
+  req.headers['access-control-expose-headers'] = '*'
   next()
 })
+
+const {rateLimitChecker} = require('../lib/utils/rateLimiter')
+
+
 
 app.use(cors(
   {
