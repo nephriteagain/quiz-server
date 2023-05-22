@@ -18,14 +18,13 @@ require('./db/index')
 
 const {rateLimitChecker} = require('../lib/utils/rateLimiter')
 
-// app.use((req, res, next ) => {
-//   req.headers['access-control-allow-origin'] = '*'
-//   req.headers['access-control-allow-credentials'] = true
-//   req.headers['access-control-allow-headers'] = '*'
-//   req.headers['access-control-allow-methods'] = '*'
-//   req.headers['access-control-expose-headers'] = '*'
-//   next()
-// })
+app.use((req, res, next ) => {
+  req.header("Access-Control-Allow-Origin: https://quizzle-solveandcreate.onrender.com");
+  req.header("Access-Control-Allow-Credentials: true");
+  req.header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
+  req.header("Access-Control-Allow-Headers: Content-Type, *");
+  next()
+})
 
 
 

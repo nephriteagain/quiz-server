@@ -122,7 +122,7 @@ router.post('/', async (req, res) => {
 router.post('/verify', async (req, res) => {
   
   if (!req.body?.code || !req.cookies?.codeId) {
-    res.status(400).send({message: 'missing credentials'})
+    return res.status(400).send({message: 'missing credentials'})
   }
 
   const { code } = req.body
