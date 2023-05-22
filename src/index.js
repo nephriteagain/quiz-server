@@ -19,7 +19,7 @@ require('./db/index')
 const {rateLimitChecker} = require('../lib/utils/rateLimiter')
 
 app.use((req, res, next ) => {
-  req.headers['access-control-allow-origin'] = process.env.ClIENT_URI
+  req.headers['access-control-allow-origin'] = '*'
   req.headers['access-control-allow-credentials'] = true
   req.headers['access-control-allow-headers'] = '*'
   req.headers['access-control-allow-methods'] = '*'
@@ -30,9 +30,9 @@ app.use((req, res, next ) => {
 
 app.use(cors(
   {
-    origin: process.env.ClIENT_URI,
+    origin: '*',
     credentials: true,
-    methods: 'GET,POST,PUT,DELETE'
+    methods: '*'
   }
 ))
 
