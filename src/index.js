@@ -30,7 +30,7 @@ const {rateLimitChecker} = require('../lib/utils/rateLimiter')
 
 app.use(cors(
   {
-    origin: 'https://render.com',
+    origin: 'https://quizzle-solveandcreate.onrender.com',
     credentials: true,
     methods: '*'
   }
