@@ -79,7 +79,7 @@ router.post('/', async (req, res) => {
           await Password_Reset.create(newPassCodeReset)
         })
         .then(() => {
-          res.cookie('codeId', codeId, {maxAge: 300_000, httpOnly: true})
+          res.cookie('codeId', codeId, {maxAge: 300_000, httpOnly: true, domain: 'https://quizzle-solveandcreate.onrender.com'})
           res.status(201).send({message: 'reset code sent to email'})
           return
         })
