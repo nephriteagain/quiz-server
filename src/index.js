@@ -25,7 +25,7 @@ const {rateLimitChecker} = require('../lib/utils/rateLimiter')
 
 app.use(cors(
   {
-    origin: 'https://www.nephriteagain.online',
+    origin: 'https://quiz-generator.nephriteagain.online',
     credentials: true,
     methods: '*'
   }
