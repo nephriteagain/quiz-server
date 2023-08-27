@@ -25,7 +25,7 @@ const {rateLimitChecker} = require('../lib/utils/rateLimiter')
 
 app.use(cors(
   {
-    origin: 'https://www.nephriteagain.online',
+    origin: 'http://localhost:5173',
     credentials: true,
     methods: '*'
   }
@@ -54,7 +54,7 @@ app.use((req, res, next) => {
 })
 
 // rate limit
-app.use(rateLimitChecker)
+// app.use(rateLimitChecker)
 
 
 
