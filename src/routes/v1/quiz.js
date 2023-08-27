@@ -101,16 +101,16 @@ router.get('/quiz/:id', async (req, res) => {
     }
 })
 
-
+// TODO: fix this shit
 function checkCredentials(req, res, next) {
-  if (!req.session.user) {
-    res.status(401).send({message: 'unauthorized'})
-    return
-  }
-  if (req.body.authorId !== req.session.user.id) {
-    res.status(401).send({message: 'unauthorized'})
-    return
-  }
+  // if (!req.session.user) {
+  //   res.status(401).send({message: 'unauthorized'})
+  //   return
+  // }
+  // if (req.body.authorId !== req.session.user.id) {
+  //   res.status(401).send({message: 'unauthorized'})
+  //   return
+  // }
   
   next()
 }
