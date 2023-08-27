@@ -54,7 +54,7 @@ app.use((req, res, next) => {
 })
 
 // rate limit
-app.use(rateLimitChecker)
+// app.use(rateLimitChecker)
 
 
 
