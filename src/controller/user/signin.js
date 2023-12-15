@@ -1,5 +1,5 @@
 const User = require('../../db/Schema/UserSchema')
-const signup = require('./signup')
+const { comparePassword } = require('../../../lib/utils/loginHelper')
 
 async function signin(req,res) {
     if (!req.body.password || !req.body.email) {
