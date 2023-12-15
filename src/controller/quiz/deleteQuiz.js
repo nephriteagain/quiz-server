@@ -12,6 +12,7 @@ async function deleteQuiz(req,res) {
         const deletedQuiz = await Quiz.findByIdAndDelete(id)
         res.status(200).send(deletedQuiz)
     } catch (error) {
+        console.error(error)
         res.status(500).send(err)
     }
 }

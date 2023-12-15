@@ -47,9 +47,11 @@ async function verify(req,res) {
                             return res.status(200).send({_id, email})
                         })
                         .catch((err) => {
+                            console.error(error)
                             return res.status(500).send({message: 'db delete err'})
                         })
                 } catch (error) {
+                    console.error(error)
                     return res.status(500).send({message: 'db error'})
                 }
                 
@@ -59,7 +61,8 @@ async function verify(req,res) {
         }
 
     } catch (error) {
-    return res.status(500).send({message: 'outer trycatch err'})
+        console.error(error)
+        return res.status(500).send({message: 'outer trycatch err'})
     }
 }
 

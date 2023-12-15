@@ -21,6 +21,7 @@ async function createQuiz(req, res) {
         await Quiz.create(quiz) 
         res.status(201).send(quiz)
     } catch (error) {
+        console.error(error)
         res.status(400).send(error)
     }
 

@@ -24,7 +24,8 @@ async function getQuizzes(req,res) {
         })
         res.status(200).send(dataToSend)
         } catch (error) {
-        res.status(500).send(error)
+            console.error(error)
+            res.status(500).send(error)
         }
         
     } 
@@ -44,7 +45,8 @@ async function getQuizzes(req,res) {
         })
         res.status(200).send(dataToSend)
         } catch (error) {
-        res.status(500).send(error)
+            console.error(error)
+            res.status(500).send(error)
         }
         
     }
@@ -63,9 +65,10 @@ async function getQuizzes(req,res) {
             const {_id, title, createdBy} = item
             return {_id, title, createdBy}
         })
-        res.status(200).send(dataToSend)
+            res.status(200).send(dataToSend)
         } catch (error) {
-        res.status(500).send(error)
+            console.error(error)
+            res.status(500).send(error)
         }
     } else {
         res.status(500).send(error)

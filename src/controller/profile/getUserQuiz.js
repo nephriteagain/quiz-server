@@ -8,6 +8,7 @@ async function getUserQuiz(req,res) {
         const allUserQuiz = await Quiz.find({authorId: id})
         res.status(200).send(allUserQuiz)
     } catch (error) {
+        console.error(error)
         res.status(500).send(error)
     }
 }

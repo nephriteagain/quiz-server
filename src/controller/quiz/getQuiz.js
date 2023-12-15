@@ -14,6 +14,7 @@ async function getQuiz(req,res) {
             const newQuiz = {...quiz, questions: noAnswers}
             res.status(200).send(newQuiz._doc)
         } catch (error) {
+            console.error(error)
             res.status(500).send(error)
         }
     } else {

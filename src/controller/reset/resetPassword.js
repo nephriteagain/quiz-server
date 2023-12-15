@@ -30,6 +30,7 @@ async function resetPassword(req,res) {
             return res.status(400).send({message: 'incorrect email'})
         }
     } catch (error) {
+        console.error(error)
         return res.status(500).send({error})
     }
             
@@ -69,6 +70,7 @@ async function resetPassword(req,res) {
                 return
             })
             .catch((err) => {
+                console.error(error)
                 return res.status(500).send({err})
             })
 
@@ -87,6 +89,7 @@ async function resetPassword(req,res) {
                 return res.status(201).send({message: 'reset code sent to email'})
             })
             .catch((err) => {
+                console.error(error)
                 return res.status(500).send({err})
             })
             
@@ -96,6 +99,7 @@ async function resetPassword(req,res) {
 
 
     } catch (error) {
+        console.error(error)
         res.status(500).send({error})
     }
 }

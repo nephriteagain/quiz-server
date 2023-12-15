@@ -22,6 +22,7 @@ async function signup(req,res) {
         await User.create(user)
         res.status(201).send(user)  
     } catch (error) {
+        console.error(error)
         res.status(500).send(error)
     }
 }

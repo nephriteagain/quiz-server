@@ -54,13 +54,15 @@ async function confirm(req,res) {
             .then(() => {
               return res.status(201).send({message: 'password changed successfully'})
             })
-            .catch((err) => {
+            .catch((error) => {
+              console.error(error)
               res.status(500).send({message: 'password change failed'})
             })
         
     
       } catch (error) {
-        return res.status(500).send({message: 'outer trycatch error'})
+          console.error(error)
+          return res.status(500).send({message: 'outer trycatch error'})
       }
 }
 

@@ -34,6 +34,7 @@ async function submitQuizSolutions(req,res) {
             })
             res.status(200).send(checkedQuizQuestion)
         } catch (error) {
+            console.error(error)
             res.status(500).send({message: 'error'})
         }
     } else {

@@ -20,7 +20,8 @@ async function getSession(req,res) {
             res.status(200).send({session: false})
         }
     } catch (error) {
-    res.status(500).send(error)
+        console.error(error)
+        res.status(500).send(error)
     }
 }
 
