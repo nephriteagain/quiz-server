@@ -1,7 +1,7 @@
 const User = require('../../db/Schema/UserSchema')
 const signup = require('./signup')
 
-async function signin() {
+async function signin(req,res) {
     if (!req.body.password || !req.body.email) {
         res.status(400).send({message: 'missing credentials'})
       }
