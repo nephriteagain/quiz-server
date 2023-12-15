@@ -1,4 +1,5 @@
 const Quiz = require('../../db/Schema/QuizSchema')
+const mongoose = require('mongoose')
 
 async function submitQuizSolutions(req,res) {
     const id = req.params.id
