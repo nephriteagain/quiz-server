@@ -1,4 +1,5 @@
 const Quiz = require('../../db/Schema/QuizSchema')
+const mongoose = require('mongoose')
 
 // TODO: need to verify if the user owns the quiz first!
 async function deleteQuiz(req,res) {

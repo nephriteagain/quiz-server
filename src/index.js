@@ -21,11 +21,11 @@ const {rateLimitChecker} = require('../lib/utils/rateLimiter')
 // this does not work
 //TODO: make cookies get saved in render
 
-
+const ENV =  process.env.DEV === 'PROD' ? process.env.CLIENT_URI : process.env.CLIENT_DEV_URI
 
 app.use(cors(
   {
-    origin: 'https://quiz-generator.nephriteagain.online',
+    origin: ENV,
     credentials: true,
     methods: '*'
   }
