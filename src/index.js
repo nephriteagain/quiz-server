@@ -1,8 +1,8 @@
 const express = require('express')
 const cookieParser = require('cookie-parser')
-const cors = require('cors')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
+const path = require('path')
 require('dotenv').config()
 
 const QuizRouter = require('./routes/v1/quiz')
@@ -21,15 +21,7 @@ const {rateLimitChecker} = require('../lib/utils/rateLimiter')
 // this does not work
 //TODO: make cookies get saved in render
 
-const ENV =  process.env.DEV === 'PROD' ? process.env.CLIENT_URI : process.env.CLIENT_DEV_URI
 
-app.use(cors(
-  {
-    origin: ENV,
-    credentials: true,
-    methods: '*'
-  }
-))
 
 
 app.use(express.json())
@@ -59,10 +51,22 @@ app.use((req, res, next) => {
 
 
 
+app.use(express.static(path.join(__dirname, '..', 'dist')))
+
+
+app.get('/', (req,res) => {
+  res.sendFile(path.join(__dirname, '..','dist', 'index.html'))
+})
+
+
 
 app.use("/api/v1", QuizRouter)
 app.use("/api/v1/user", UserRouter)
 app.use('/api/v1/profile', ProfileRouter)
 app.use('/api/v1/reset', ResetRouter)
+
+app.all('/*', (req,res) => {
+  res.redirect('/')
+})
 
 app.listen(PORT, () => console.log(`connected to post ${PORT}`))
