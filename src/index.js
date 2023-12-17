@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const path = require('path')
+const cors = require('cors')
 require('dotenv').config()
 
 const QuizRouter = require('./routes/v1/quiz')
@@ -23,6 +24,16 @@ const {rateLimitChecker} = require('../lib/utils/rateLimiter')
 
 
 
+if (process.env.ENV === 'dev') {
+  app.use(cors(
+    {
+      origin: 'http://localhost:5173',
+      credentials: true,
+      methods: '*'
+    }
+  ))
+  
+}
 
 app.use(express.json())
 app.use(express.urlencoded())
