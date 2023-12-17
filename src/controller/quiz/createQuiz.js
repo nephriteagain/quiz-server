@@ -1,4 +1,4 @@
-const Quiz = require('../../db/Schema/QuizSchema')
+const Quiz = require("../../db/Schema/QuizSchema");
 
 // TODO: fix this shit
 function checkCredentials(req, res, next) {
@@ -11,20 +11,19 @@ function checkCredentials(req, res, next) {
     //   return
     // }
 
-    next()
+    next();
 }
 
 async function createQuiz(req, res) {
-    const quiz = new Quiz(req.body)
+    const quiz = new Quiz(req.body);
 
     try {
-        await Quiz.create(quiz) 
-        res.status(201).send(quiz)
+        await Quiz.create(quiz);
+        res.status(201).send(quiz);
     } catch (error) {
-        console.error(error)
-        res.status(400).send(error)
+        console.error(error);
+        res.status(400).send(error);
     }
-
 }
 
-module.exports = { checkCredentials, createQuiz }
+module.exports = { checkCredentials, createQuiz };

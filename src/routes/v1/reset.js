@@ -1,19 +1,15 @@
-const { Router } = require('express')
+const { Router } = require("express");
 
-const resetPassword = require('../../controller/reset/resetPassword')
-const verify = require('../../controller/reset/verify')
-const confirm = require('../../controller/reset/confirm')
+const resetPassword = require("../../controller/reset/resetPassword");
+const verify = require("../../controller/reset/verify");
+const confirm = require("../../controller/reset/confirm");
 
+require("dotenv").config();
 
-require('dotenv').config()
+const router = Router();
 
-const router = Router()
+router.post("/", resetPassword);
+router.post("/verify", verify);
+router.post("/confirm", confirm);
 
-router.post('/', resetPassword)
-router.post('/verify', verify)
-router.post('/confirm', confirm)
-
-
-
-module.exports = router
-
+module.exports = router;
