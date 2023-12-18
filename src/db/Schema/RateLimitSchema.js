@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 
 const RateLimitSchema = new mongoose.Schema({
-    ip: {
-        type: String,
-        unique: true,
-        required: true,
-    },
     requestTimes: {
         type: Number,
         required: true,
