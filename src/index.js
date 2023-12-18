@@ -51,8 +51,8 @@ app.use((req, res, next) => {
     next();
 });
 
-// rate limit
-app.use(rateLimitChecker);
+// rate limit TODO:
+// app.use(rateLimitChecker);
 
 app.use(express.static(path.join(__dirname, "..", "dist")));
 

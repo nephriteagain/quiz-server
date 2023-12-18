@@ -14,7 +14,7 @@ async function deleteQuiz(req, res) {
         res.status(200).send(deletedQuiz);
     } catch (error) {
         console.error(error);
-        res.status(500).send(err);
+        res.status(500).send(error);
     }
 }
 
