@@ -1,6 +1,4 @@
 const { Router } = require("express");
-const mongoose = require("mongoose");
-const Quiz = require("../../db/Schema/QuizSchema");
 
 const router = Router();
 

@@ -1,15 +1,16 @@
 const Quiz = require("../../db/Schema/QuizSchema");
 
-// TODO: fix this shit
 function checkCredentials(req, res, next) {
-    // if (!req.session.user) {
-    //   res.status(401).send({message: 'unauthorized'})
-    //   return
-    // }
-    // if (req.body.authorId !== req.session.user.id) {
-    //   res.status(401).send({message: 'unauthorized'})
-    //   return
-    // }
+    // user not logged in
+    if (!req.session.user) {
+        res.status(401).send({ message: "unauthorized" });
+        return;
+    }
+    // user pretending to be other
+    if (req.body.authorId !== req.session.user.id) {
+        res.status(401).send({ message: "forbidden" });
+        return;
+    }
 
     next();
 }
