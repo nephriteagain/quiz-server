@@ -31,7 +31,7 @@ async function getQuizzes(req, res) {
     } else if (title) {
         const titleRegex = new RegExp(title, "gi");
         try {
-            const titleSearchedQuiz = await Quiz.find({ title: titleRegex })
+            const titleSearchedQuiz = await Quiz.find({ title: { '$regex': titleRegex } })
                 .sort({ title: 1 })
                 .skip(skipPerPage)
                 .limit(itemLimit)
@@ -51,7 +51,7 @@ async function getQuizzes(req, res) {
 
         try {
             const authorSearchedQuiz = await Quiz.find({
-                createdBy: authorRegex,
+                createdBy: {'$regex': authorRegex},
             })
                 .sort({ createdBy: 1 })
                 .skip(skipPerPage)
