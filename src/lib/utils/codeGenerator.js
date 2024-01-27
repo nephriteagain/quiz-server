@@ -1,3 +1,7 @@
+/**
+ * @description generates a random 6 digit numeric string
+ * @returns {string} a 6 digit numberic string
+ */
 function generateCode() {
     let code = "";
     for (let i = 0; i < 6; i++) {
@@ -6,6 +10,10 @@ function generateCode() {
     return code;
 }
 
+/**
+ * @description generate a 12 character alphanumeric string
+ * @returns {string} an alphanumeric string
+ */
 function generateRandomString() {
     const characters =
         "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";

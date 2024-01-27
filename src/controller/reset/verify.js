@@ -1,7 +1,7 @@
 const Password_Reset = require("../../db/Schema/PasswordResetSchema");
 const AuthPassReset = require("../../db/Schema/AuthorizedResetSchema");
 
-const { comparePassword } = require("../../../lib/utils/loginHelper");
+const { comparePassword } = require("../../lib/utils/loginHelper");
 
 async function verify(req, res) {
     if (!req.body?.code || !req.cookies?.codeId) {

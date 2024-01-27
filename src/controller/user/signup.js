@@ -1,5 +1,5 @@
 const User = require("../../db/Schema/UserSchema");
-const { hashPassword } = require("../../../lib/utils/loginHelper");
+const { hashPassword } = require("../../lib/utils/loginHelper");
 
 // TODO: check the db first if the user already has an account
 async function signup(req, res) {

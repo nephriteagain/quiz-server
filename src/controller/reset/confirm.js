@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 const User = require("../../db/Schema/UserSchema");
 const AuthPassReset = require("../../db/Schema/AuthorizedResetSchema");
 
-const { hashPassword } = require("../../../lib/utils/loginHelper");
+const { hashPassword } = require("../../lib/utils/loginHelper");
 
 const {
     passwordLengthChecker,
     passwordCharChecker,
     specialSymbolChecker,
-} = require("../../../lib/utils/passwordChecker");
+} = require("../../lib/utils/passwordChecker");
 
 async function confirm(req, res) {
     if (!req.body?._id || !req.body?.email || !req.body?.password) {

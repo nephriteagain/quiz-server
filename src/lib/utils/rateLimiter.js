@@ -1,5 +1,6 @@
-const Rate_Limit = require("../../src/db/Schema/RateLimitSchema");
+const Rate_Limit = require("../../db/Schema/RateLimitSchema");
 const mongoose = require('mongoose')
+
 
 async function rateLimitChecker(req, res, next) {
     let ip = req.cookies?.id;

@@ -4,12 +4,12 @@ const nodemailer = require("nodemailer");
 const User = require("../../db/Schema/UserSchema");
 const Password_Reset = require("../../db/Schema/PasswordResetSchema");
 
-const { hashPassword } = require("../../../lib/utils/loginHelper");
+const { hashPassword } = require("../../lib/utils/loginHelper");
 
 const {
     generateCode,
     generateRandomString,
-} = require("../../../lib/utils/codeGenerator");
+} = require("../../lib/utils/codeGenerator");
 
 async function resetPassword(req, res) {
     if (!req.body?.email) {

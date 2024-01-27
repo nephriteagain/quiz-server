@@ -1,7 +1,17 @@
+/**
+ * 
+ * @param {string} password 
+ * @returns {boolean} returns true if password length greater than or equal to 6
+ */
 function passwordLengthChecker(password) {
     return password.length >= 6;
 }
 
+/**
+ * @description checks if the password contains the required chars
+ * @param {string} password 
+ * @returns {boolean} returns true of password has required chars
+ */
 function passwordCharChecker(password) {
     let hasUpper = false;
     let hasLower = false;
@@ -25,7 +35,12 @@ function passwordCharChecker(password) {
     }
 }
 
-function specialSymbolChecker(password, callback) {
+/**
+ * 
+ * @param {string} password 
+ * @returns {boolean} returns true if password contains special symbol
+ */
+function specialSymbolChecker(password) {
     const regex = /[^a-zA-Z0-9]/g;
 
     if (regex.test(password)) {

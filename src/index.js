@@ -15,7 +15,7 @@ const app = express();
 const PORT = process.env.PORT || "3000";
 require("./db/index");
 
-const { rateLimitChecker } = require("../lib/utils/rateLimiter");
+const { rateLimitChecker } = require("./lib/utils/rateLimiter");
 
 // this does not work
 //TODO: make cookies get saved in render
