@@ -16,7 +16,7 @@ function checkCredentials(req, res, next) {
 }
 
 async function createQuiz(req, res) {
-    const quiz = new Quiz(req.body);
+    const quiz = req.body;
 
     try {
         await Quiz.create(quiz);
