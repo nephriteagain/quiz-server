@@ -15,6 +15,7 @@ async function updateQuiz(req, res) {
     // console.log(authorId, sessionUserId)
     if (authorId !== sessionUserId) {
         res.status(400).send({ message: "unauthorized" });
+        return;
     }
 
     try {
@@ -22,7 +23,7 @@ async function updateQuiz(req, res) {
         res.status(201).send(updatedQuiz);
     } catch (error) {
         console.error(error);
-        res.status(500).send(err);
+        res.status(500).send({message: 'something went wrong'});
     }
 }
 
