@@ -13,12 +13,15 @@ async function getQuiz(req, res) {
             });
             const newQuiz = { ...quiz, questions: noAnswers };
             res.status(200).send(newQuiz._doc);
+            return;
         } catch (error) {
             console.error(error);
             res.status(500).send(error);
+            return;
         }
     } else {
         res.status(404).send({ message: "Invalid ID" });
+        return;
     }
 }
 
