@@ -9,7 +9,7 @@ async function getUserQuiz(req, res) {
         res.status(200).send(allUserQuiz);
     } catch (error) {
         console.error(error);
-        res.status(500).send(error);
+        res.status(500).send({message: "something went wrong"});
     }
 }
 

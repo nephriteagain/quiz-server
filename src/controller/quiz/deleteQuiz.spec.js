@@ -45,6 +45,6 @@ describe('deleteQuiz', () => {
         req.body.id = id;
         await deleteQuiz(req,res)
         expect(res.status).toHaveBeenCalledWith(404)
-        expect(res.send).toHaveBeenCalledWith(err)
+        expect(res.send).toHaveBeenCalledWith({message: 'something went wrong'})
     })
 })

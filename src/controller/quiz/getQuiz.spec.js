@@ -37,6 +37,6 @@ describe('getQuiz', () => {
         jest.spyOn(Quiz, 'findOne').mockRejectedValueOnce(err)
         await getQuiz(req,res)
         expect(res.status).toHaveBeenCalledWith(500)
-        expect(res.send).toHaveBeenCalledWith(err)
+        expect(res.send).toHaveBeenCalledWith({message: 'something went wrong'})
     })
 })

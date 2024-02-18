@@ -21,7 +21,7 @@ async function signup(req, res) {
         res.status(201).send(user);
     } catch (error) {
         console.error(error);
-        res.status(500).send(error);
+        res.status(500).send({message: "something went wrong"});
     }
 }
 

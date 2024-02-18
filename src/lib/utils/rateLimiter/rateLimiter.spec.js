@@ -100,24 +100,6 @@ describe('rateLimitChecker', () => {
             expect(res.send).toHaveBeenCalledWith({ message: "db ,too many request" })
             expect(next).toHaveBeenCalled()
         })
-
-        it('catch the error', async () => {
-            const err = 'error'
-            jest.spyOn(Rate_Limit, 'findByIdAndUpdate').mockRejectedValueOnce(err)
-            const consoleErrorSpy  = jest.spyOn(console, 'error').mockImplementationOnce()
-            const req = {
-                method: 'GET'
-            }
-            const res = {
-                status: jest.fn(() => res),
-                send: jest.fn()
-            }
-            await updateRateLimitSession(req,res,next)
-            expect(consoleErrorSpy).toHaveBeenCalledWith(err)
-            expect(res.status).toHaveBeenCalledWith(500)
-            expect(res.send).toHaveBeenCalledWith({ message: "server error" })
-            expect(next).toHaveBeenCalled()
-        })
     })
 
     

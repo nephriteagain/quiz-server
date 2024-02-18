@@ -26,9 +26,12 @@ async function getQuizzes(req, res) {
             res.status(200).send(dataToSend);
         } catch (error) {
             console.error(error);
-            res.status(500).send(error);
+            res.status(500).send({message: "something went wrong"});
         }
-    } else if (title) {
+        return
+    } 
+
+    if (title) {
         const titleRegex = new RegExp(title, "gi");
         try {
             const titleSearchedQuiz = await Quiz.find({ title: { '$regex': titleRegex } })
@@ -44,9 +47,12 @@ async function getQuizzes(req, res) {
             res.status(200).send(dataToSend);
         } catch (error) {
             console.error(error);
-            res.status(500).send(error);
+            res.status(500).send({message: 'something went wrong'});
         }
-    } else if (author) {
+        return
+    } 
+
+    if (author) {
         const authorRegex = new RegExp(author, "gi");
 
         try {
@@ -65,11 +71,12 @@ async function getQuizzes(req, res) {
             res.status(200).send(dataToSend);
         } catch (error) {
             console.error(error);
-            res.status(500).send(error);
+            res.status(500).send({message: "something went wrong"});
         }
-    } else {
-        res.status(500).send(error);
+        return
     }
+    res.status(500).send('this will never be reached');
+    return
 }
 
 module.exports = getQuizzes;
