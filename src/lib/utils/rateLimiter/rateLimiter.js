@@ -1,11 +1,10 @@
 const Rate_Limit = require("../../../db/Schema/RateLimitSchema");
 const mongoose = require('mongoose')
 
+// NOTE: code splitted to test separately
 
-async function rateLimitChecker(req, res, next) {
-    let ip = req.cookies?.id;
-    if (!ip || !mongoose.isValidObjectId(ip)) {
-        const newRateLimit = new Rate_Limit({})
+async function createNewRateLimitSession(res,next) {
+    const newRateLimit = new Rate_Limit({})
         try {
             const doc = await Rate_Limit.create(newRateLimit)
             ip = doc._id
@@ -20,13 +19,15 @@ async function rateLimitChecker(req, res, next) {
             next();
             return;
         }
-    }
+}
 
-    // cookie timeout from cookie
-    if (req.cookies?.timeOut) {
-        res.status(408).send({ message: "cookie, too many request" });
-        return;
-    }
+async function timeoutUser(res) {
+    res
+        .status(408)
+        .send({ message: "cookie, too many request" });
+}
+
+async function updateRateLimitSession(req, res, next) {
     try {
         // GET REQUEST GETS 1 POINT, THE REST IS 5
         const rateLimit = await Rate_Limit.findByIdAndUpdate(
@@ -71,4 +72,11 @@ async function rateLimitChecker(req, res, next) {
     }
 }
 
-module.exports = { rateLimitChecker };
+
+
+
+module.exports = { 
+    createNewRateLimitSession,
+    timeoutUser,
+    updateRateLimitSession        
+};
