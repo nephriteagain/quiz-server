@@ -51,7 +51,7 @@ async function rateLimitChecker(req, res, next) {
                 return;
             }            
         }
-        const maxRequest = 10;
+        const maxRequest = 100;
         if (rateLimit.requestTimes > maxRequest) {
             // timeout cookie created
             res.cookie("timeOut", "wait for a minute", {

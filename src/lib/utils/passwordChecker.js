@@ -38,7 +38,7 @@ function passwordCharChecker(password) {
 /**
  * 
  * @param {string} password 
- * @returns {boolean} returns true if password contains special symbol
+ * @returns {boolean} returns false if password contains special symbol
  */
 function specialSymbolChecker(password) {
     const regex = /[^a-zA-Z0-9]/g;
