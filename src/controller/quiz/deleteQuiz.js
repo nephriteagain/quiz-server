@@ -8,13 +8,20 @@ async function deleteQuiz(req, res) {
     // if invalid id response 400
     if (!mongoose.Types.ObjectId.isValid(id)) {
         res.status(400).send({ message: "invalid id" });
+        return;
     }
     try {
         const deletedQuiz = await Quiz.findByIdAndDelete(id);
-        res.status(200).send(deletedQuiz);
+        if (!deletedQuiz) {
+            res.status(404).send({message: 'quiz not found'})
+            return
+        }        
+        res.status(200).send(deletedQuiz);        
+        return
     } catch (error) {
         console.error(error);
         res.status(500).send(error);
+        return
     }
 }
 
