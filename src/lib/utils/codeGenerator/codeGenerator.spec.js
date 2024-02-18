@@ -1,4 +1,4 @@
-const { generateCode, generateRandomString } = require('./codeGenerator')
+const { generateCode, generateRandomString } = require('.')
 
 describe('generateCode', () => {
 
