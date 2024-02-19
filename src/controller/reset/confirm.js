@@ -43,19 +43,19 @@ async function confirm(req, res) {
 
         const emailOfResetPass = authPassChange.email;
 
-        const userReset = await User.findOneAndUpdate(
-            { email: emailOfResetPass },
-            { password: hashPassword(newPassword) },
-        )
-            .then(() => {
-                return res
-                    .status(201)
-                    .send({ message: "password changed successfully" });
-            })
-            .catch((error) => {
-                console.error(error);
-                res.status(500).send({ message: "password change failed" });
-            });
+        try {
+            await User.findOneAndUpdate(
+                { email: emailOfResetPass },
+                { password: hashPassword(newPassword) },
+            )
+            await res.status(201).send({ message: "password changed successfully" });
+            return
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({ message: "password change failed" });
+            return
+        }
+
     } catch (error) {
         console.error(error);
         return res.status(500).send({ message: "outer trycatch error" });
