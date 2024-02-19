@@ -9,7 +9,7 @@ async function signout(req, res) {
     req.session.destroy((err) => {
         if (err) {
             console.log(err);
-            res.status(500).send(userSession);
+            res.status(500).send({message: 'something went wrong'});
         } else {
             res.clearCookie("connect.sid");
             res.status(200).send(userSession);
