@@ -9,12 +9,12 @@ async function signup(req, res) {
 
     const { firstName, lastName, email, password } = req.body;
 
-    const user = new User({
+    const user = {
         email,
         firstName: firstName.toLowerCase(),
         lastName: lastName.toLowerCase(),
         password: hashPassword(password),
-    });
+    };
 
     try {
         await User.create(user);
