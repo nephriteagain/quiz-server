@@ -1,10 +1,11 @@
 const User = require("../../db/Schema/UserSchema");
-const { hashPassword } = require("../../lib/utils/loginHelper");
+const loginHelper = require("../../lib/utils/loginHelper");
 
 // TODO: check the db first if the user already has an account
 async function signup(req, res) {
     if (req.body.password !== req.body.confirmPass) {
         res.status(401).send({ message: "password does not match" });
+        return;
     }
 
     const { firstName, lastName, email, password } = req.body;
@@ -13,15 +14,17 @@ async function signup(req, res) {
         email,
         firstName: firstName.toLowerCase(),
         lastName: lastName.toLowerCase(),
-        password: hashPassword(password),
+        password: loginHelper.hashPassword(password),
     };
 
     try {
         await User.create(user);
         res.status(201).send(user);
+        return;
     } catch (error) {
         console.error(error);
         res.status(500).send({message: "something went wrong"});
+        return
     }
 }
 
