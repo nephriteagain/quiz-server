@@ -1,8 +1,6 @@
-const mongoose = require("mongoose");
 const User = require("../../db/Schema/UserSchema");
 const AuthPassReset = require("../../db/Schema/AuthorizedResetSchema");
 
-const { hashPassword } = require("../../lib/utils/loginHelper");
 const { generateObjectId} = require('../../lib/testHelpers/generateObjectId')
 const pwChecker = require("../../lib/utils/passwordChecker");
 const confirm = require('./confirm')

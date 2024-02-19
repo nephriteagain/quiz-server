@@ -28,7 +28,7 @@ async function resetPassword(req, res) {
         }
     } catch (error) {
         console.error(error);
-        return res.status(500).send({ error });
+        return res.status(500).send({ message: 'server error' });
     }
 
     try {
@@ -57,50 +57,31 @@ async function resetPassword(req, res) {
         });
 
         if (!req.cookies?.codeId) {
-            await transporter
-                .sendMail(message)
-                .then(async () => {
-                    await Password_Reset.create(newPassCodeReset);
-                })
-                .then(() => {
-                    res.cookie("codeId", codeId, {
-                        maxAge: 300_000,
-                        httpOnly: true,
-                    });
-                    res.status(201).send({
-                        message: "reset code sent to email",
-                    });
-                    return;
-                })
-                .catch((err) => {
-                    console.error(error);
-                    return res.status(500).send({ err });
-                });
-        } else {
-            const cookieCodeId = req.cookies.codeId;
-
-            await transporter
-                .sendMail(message)
-                .then(async () => {
-                    await Password_Reset.findByIdAndUpdate(
-                        { codeId: cookieCodeId },
-                        { code: hashedPw },
-                    );
-                })
-                .then((res) => {
-                    console.log(res);
-                    return res
-                        .status(201)
-                        .send({ message: "reset code sent to email" });
-                })
-                .catch((err) => {
-                    console.error(error);
-                    return res.status(500).send({ err });
-                });
+            await transporter.sendMail(message)
+            await Password_Reset.create(newPassCodeReset)
+            res.cookie("codeId", codeId, {
+                maxAge: 300_000,
+                httpOnly: true,
+            });
+            res.status(201).send({
+                message: "reset code sent to email",
+            });
+            return;
+                        
         }
+
+        const cookieCodeId = req.cookies.codeId;
+
+        await transporter.sendMail(message)
+        await Password_Reset.findByIdAndUpdate(
+            { codeId: cookieCodeId },
+            { code: hashedPw },
+        )
+        res.status(201).send({ message: "reset code sent to email" });
+        return
     } catch (error) {
         console.error(error);
-        res.status(500).send({ error });
+        res.status(500).send({ message: 'something went wrong' });
     }
 }
 
