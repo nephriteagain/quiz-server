@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const MongoStore = require("connect-mongo");
 require("dotenv").config();
 
 
@@ -30,3 +31,9 @@ async function connectToMongo(tries) {
     }
 
 })()
+
+module.exports = {
+    sessionStore : MongoStore.create({
+        mongoUrl: process.env.MONGO_URI
+    })
+}

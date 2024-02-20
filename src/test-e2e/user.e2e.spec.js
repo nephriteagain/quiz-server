@@ -1,14 +1,14 @@
 const request = require('supertest')
 const app = require('../app')
 const mongoDB = require('../lib/testHelpers/mongoDb')
+const { sessionStore } = require('../db/index')
 const {
     sessionCookie, 
 } = require('./helpers')
 const { generateObjectId } = require('../lib/testHelpers/generateObjectId')
 
 
-describe('User', () => {
-    
+describe('User', () => {    
 
     beforeAll(async () => {
         await mongoDB.connect();
@@ -16,6 +16,7 @@ describe('User', () => {
 
     afterAll(async () => {
         await mongoDB.disconnect();
+        await sessionStore.close()
     });
 
     describe('GET /session', () => {
@@ -36,7 +37,8 @@ describe('User', () => {
 
             return await request(app)
                 .get('/api/v1/user/session/')
-                .set('Cookie', `${sessionCookie}`)
+                .set('Cookie', sessionCookie)
+                .withCredentials(true)
                 .expect(200)
                 .expect({session:true, user})
         });
@@ -90,6 +92,63 @@ describe('User', () => {
 
     });
 
+    describe('POST /signin', () => {
+        
+        it('should return 401, no password', async () => {
+            return await request(app)
+                .post('/api/v1/user/signin')
+                .send({email: 'email@email.com'})
+                .expect(400)
+                .expect({message: 'missing credentials'})
+        });
+
+        it('should return 401, no email', async () => {
+            return await request(app)
+                .post('/api/v1/user/signin')
+                .send({password: 'Password123'})
+                .expect(400)
+                .expect({message: 'missing credentials'})
+        });
+
+        it('should return 400, user not found', async () => {
+            return await request(app)
+                .post('/api/v1/user/signin')
+                .send({password: 'Password123', email: 'randomEmail@email.com'})
+                .expect(400)
+                .expect({message: 'bad request'})
+        });
+
+        it('should return 400, incorrect password', async () => {
+            return await request(app)
+                .post('/api/v1/user/signin')
+                .send({password: 'Password123', email: 'email@email.com'})
+                .expect(400)
+                .expect({message: 'incorrect password'})
+        });
+
+        it('should return 200', async () => {
+            return await request(app)
+                .post('/api/v1/user/signin')
+                .send({password: 'JadeLazo123', email: 'email@email.com'})
+                .expect(200)
+                .then(res => {
+                    expect(res.body.message).toBe('logged in')
+                })
+        });
+
+
+
+    });
+
+    describe('POST /signout', () => {
+        
+        it('should return 200, logged out', async () => {
+            return await request(app)
+                .post('/api/v1/user/signout')
+                .set('Cookie', sessionCookie)
+                .expect(200)
+        });
+    });
 
 
 });

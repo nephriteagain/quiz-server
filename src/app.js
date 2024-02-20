@@ -10,7 +10,7 @@ const QuizRouter = require("./routes/v1/quiz");
 const UserRouter = require("./routes/v1/user");
 const ProfileRouter = require("./routes/v1/profile");
 const ResetRouter = require("./routes/v1/reset");
-
+const { sessionStore } = require('./db/index')
 const app = express();
 // require("./db/index");
 
@@ -32,6 +32,7 @@ if (process.env.ENV === "dev") {
 app.use(express.json());
 app.use(express.urlencoded());
 
+
 app.use(cookieParser());
 app.use(
     session({
@@ -39,9 +40,7 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: { maxAge: 604_800_000_000_000, }, // seven days
-        store: MongoStore.create({
-            mongoUrl: process.env.MONGO_URI,
-        }),
+        store: sessionStore
     }),
 );
 

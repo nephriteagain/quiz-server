@@ -1,6 +1,7 @@
 const User = require("../../db/Schema/UserSchema");
 
 async function getSession(req, res) {
+    console.log({session: req.session})
     if (!req.session.user) {
         res.status(200).send({ session: false });
         return

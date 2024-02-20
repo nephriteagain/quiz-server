@@ -10,6 +10,6 @@ const router = Router();
 router.get("/session", getSession);
 router.post("/signup", signup);
 router.post("/signin", signin);
-router.get("/signout", signout);
+router.post("/signout", signout);
 
 module.exports = router;
