@@ -27,6 +27,22 @@ describe('signup', () => {
 
     }})
 
+    // it('should return 409, email already on use', async () => {
+    //     const user = {
+    //         firstName: 'j',
+    //         lastName: 'l',
+    //         email: 'e@e.e',
+    //         password: 'Password123',
+    //         confirmPass: 'Password123'
+    //     }
+
+    //     req.body = user
+    //     jest.spyOn(User, 'findOne').mockReturnValueOnce({})
+    //     await signup(req,res)
+    //     expect(res.status).toHaveBeenCalledWith(409);
+    //     expect(res.send).toHaveBeenCalledWith({message: 'conflict'});        
+    // });
+
     it('should return 201', async () => {
         const user = {
             firstName: 'j',
@@ -38,6 +54,7 @@ describe('signup', () => {
 
         req.body = user
         jest.spyOn(User, 'create').mockReturnValueOnce({})
+        jest.spyOn(User, 'findOne').mockReturnValueOnce(null)
         jest.spyOn(loginHelper, 'hashPassword').mockImplementationOnce(p => p)
         await signup(req,res)
         const { confirmPass, ...rest } = user
@@ -55,9 +72,9 @@ describe('signup', () => {
         }
 
         req.body = user
-        jest.spyOn(User, 'create').mockRejectedValueOnce()
+        jest.spyOn(User, 'findOne').mockRejectedValueOnce()
         await signup(req,res)
-        const { confirmPass, ...rest } = user
+        
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.send).toHaveBeenCalledWith({message: 'something went wrong'});        
     });

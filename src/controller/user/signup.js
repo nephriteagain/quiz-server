@@ -8,16 +8,24 @@ async function signup(req, res) {
         return;
     }
 
-    const { firstName, lastName, email, password } = req.body;
-
-    const user = {
-        email,
-        firstName: firstName.toLowerCase(),
-        lastName: lastName.toLowerCase(),
-        password: loginHelper.hashPassword(password),
-    };
+    const { firstName, lastName, email, password } = req.body;        
 
     try {
+        const existingUser = await User.findOne({email})
+        if (existingUser) {
+            res.status(409).send({message: 'conflict'})
+            return
+        }
+
+        const user = {
+            email,
+            firstName: firstName.toLowerCase(),
+            lastName: lastName.toLowerCase(),
+            password: loginHelper.hashPassword(password),
+        };
+
+
+
         await User.create(user);
         res.status(201).send(user);
         return;

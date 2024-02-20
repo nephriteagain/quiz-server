@@ -2,7 +2,6 @@ const request = require('supertest')
 const app = require('../app')
 const mongoDB = require('../lib/testHelpers/mongoDb')
 const {generateObjectId} = require('../../src/lib/testHelpers/generateObjectId')
-const mongoose = require('mongoose')
 const {
     sessionCookie, 
     authorId,
@@ -11,21 +10,7 @@ const {
 } = require('./helpers')
 
 describe("Quiz route", () => {
-    let session;
 
-    beforeEach(async () => {
-        session = await mongoose.startSession()
-    })
-
-    afterEach(async () => {
-        try {
-            await session.abortTransaction();
-        } catch (error) {
-            console.error('Error during transaction rollback:');
-        } finally {
-            await session.endSession();
-        }
-    });
 
     beforeAll(async () => {
         await mongoDB.connect();
@@ -89,7 +74,7 @@ describe("Quiz route", () => {
         it('should return 401, body.authorId !== session.user.id', async () => {            
             return await request(app)
                 .post('/api/v1/')
-                .set('Cookie', `connect.sid=${sessionCookie}`)
+                .set('Cookie', `${sessionCookie}`)
                 .withCredentials(true)
                 .send({authorId: generateObjectId()})
                 .expect(401)
@@ -115,7 +100,7 @@ describe("Quiz route", () => {
             }
             return await request(app)
                 .post('/api/v1/')
-                .set('Cookie', `connect.sid=${sessionCookie}`)
+                .set('Cookie', `${sessionCookie}`)
                 .withCredentials(true)
                 .send(quiz)
                 .expect(201)
@@ -139,7 +124,7 @@ describe("Quiz route", () => {
             }
             return await request(app)        
                 .post(`/api/v1/update/${e2eQuizId}`)
-                .set('Cookie', `connect.sid=${sessionCookie}`)
+                .set('Cookie', `${sessionCookie}`)
                 .withCredentials(true)
                 .send(body)
                 .expect(401)
@@ -154,7 +139,7 @@ describe("Quiz route", () => {
             }
             return await request(app)        
                 .post(`/api/v1/update/${e2eQuizId}`)
-                .set('Cookie', `connect.sid=${sessionCookie}`)
+                .set('Cookie', `${sessionCookie}`)
                 .withCredentials(true)
                 .send(body)
                 .expect(201)
@@ -240,7 +225,7 @@ describe("Quiz route", () => {
             return await request(app)
                 // create the quiz first
                 .post('/api/v1/')
-                .set('Cookie', `connect.sid=${sessionCookie}`)
+                .set('Cookie', `${sessionCookie}`)
                 .withCredentials(true)
                 .send(quiz)
                 .expect(201)
