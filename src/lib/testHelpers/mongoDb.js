@@ -3,11 +3,13 @@ const mongoose = require('mongoose')
 
 module.exports = {
     mongoose,
-    connect: () => {
+    connect: async () => {
       mongoose.Promise = Promise;
-      mongoose.connect(process.env.MONGO_URI);
+      await mongoose.connect(process.env.MONGO_URI);
+      console.log('connected to db')
     },
-    disconnect: done => {
-      mongoose.disconnect(done);
+    disconnect: async () => {
+      await mongoose.connection.close();
+      console.log('disconnected to db')      
     }
   };

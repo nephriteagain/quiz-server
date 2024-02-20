@@ -6,6 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "test": "jest",
+    "test:e2e": "jest e2e",
     "dev": "nodemon ./src/index.js",
     "start": "node ./src/index.js",
     "format": "prettier --write \"src/**/*.js\" \"lib/**/*.js\""

@@ -18,7 +18,7 @@ async function rateLimitChecker(req, res, next) {
         timeoutUser(res)
         return;
     }
-    updateRateLimitSession(req,res,next)
+    updateRateLimitSession(req,res,next, ip)
     return
 }
 

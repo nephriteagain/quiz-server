@@ -23,7 +23,7 @@ describe('updateQuiz', () => {
         req.body.authorId = 'some_id';
         req.session.user = {}, req.session.user.id = 'another_id'
         await updateQuiz(req,res)
-        expect(res.status).toHaveBeenCalledWith(400)
+        expect(res.status).toHaveBeenCalledWith(401)
         expect(res.send).toHaveBeenCalledWith({message: 'unauthorized'})
     })
 

@@ -52,12 +52,12 @@ describe('createQuiz', () => {
             expect(res.send).toHaveBeenCalledWith(req.body)
         })
 
-        it('catches an error, sends 400', async () => {
+        it('catches an error, sends 500', async () => {
             const err = 'error'
             jest.spyOn(Quiz, 'create').mockRejectedValueOnce(err)
             await createQuiz(req,res)
-            expect(res.status).toHaveBeenCalledWith(400)
-            expect(res.send).toHaveBeenCalledWith(err)
+            expect(res.status).toHaveBeenCalledWith(500)
+            expect(res.send).toHaveBeenCalledWith({message: 'something went wrong'})
         })
 
     })

@@ -2,7 +2,7 @@ const Quiz = require("../../db/Schema/QuizSchema");
 
 function checkCredentials(req, res, next) {
     // user not logged in
-    if (!req.session.user) {
+    if (!req.session.user) {        
         res.status(401).send({ message: "unauthorized" });
         return;
     }
@@ -16,15 +16,33 @@ function checkCredentials(req, res, next) {
 }
 
 async function createQuiz(req, res) {
-    const quiz = req.body;
-
+    /**@type {Quiz} */
+    const quiz = req.body;    
     try {
-        await Quiz.create(quiz);
-        res.status(201).send(quiz);
+        const newQuiz = await Quiz.create(quiz);
+        res.status(201).send(newQuiz);
     } catch (error) {
         console.error(error);
-        res.status(400).send(error);
+        res.status(500).send({message: 'something went wrong'});
     }
 }
 
 module.exports = { checkCredentials, createQuiz };
+
+
+/**
+@typedef {Object} Quiz
+@property {string} title
+@property {string} authorId
+@property {string} createdBy
+@property {Question[]} questions
+*
+*/
+
+
+/**
+ * @typedef {Object} Question
+ * @property {string} questionText
+ * @property {string} correctAnswer
+ * @property {string[]} options
+ */

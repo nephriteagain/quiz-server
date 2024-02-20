@@ -38,7 +38,7 @@ app.use(
         secret: process.env.SECRET_KEY,
         resave: false,
         saveUninitialized: false,
-        cookie: { maxAge: 604_800_000 }, // seven days
+        cookie: { maxAge: 604_800_000_000_000, }, // seven days
         store: MongoStore.create({
             mongoUrl: process.env.MONGO_URI,
         }),

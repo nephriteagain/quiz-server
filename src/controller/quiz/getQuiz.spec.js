@@ -14,11 +14,19 @@ describe('getQuiz', () => {
         send: jest.fn(),
     }
 
-    it('sends 404, is invalid id', async () => {
+    it('sends 400, is invalid id', async () => {
         req.params.id = 'invalid_id'
         await getQuiz(req,res)
-        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.status).toHaveBeenCalledWith(400)
         expect(res.send).toHaveBeenCalledWith({message: 'Invalid ID'})
+    })
+
+    it('sends 404, no quiz found', async () => {
+        req.params.id = generateObjectId();        
+        jest.spyOn(Quiz, 'findOne').mockReturnValueOnce(null)
+        await getQuiz(req,res)
+        expect(res.status).toHaveBeenCalledWith(404)
+        expect(res.send).toHaveBeenCalledWith({message: 'quiz not found'})
     })
 
     it('sends 200', async () => {

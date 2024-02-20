@@ -7,7 +7,7 @@ async function createNewRateLimitSession(res,next) {
     const newRateLimit = new Rate_Limit({})
         try {
             const doc = await Rate_Limit.create(newRateLimit)
-            ip = doc._id
+            const ip = doc._id
             res.cookie("id", ip, {
                 maxAge: 999_999_999_999,
                 httpOnly: true
@@ -27,7 +27,7 @@ async function timeoutUser(res) {
         .send({ message: "cookie, too many request" });
 }
 
-async function updateRateLimitSession(req, res, next) {
+async function updateRateLimitSession(req, res, next, ip) {
     try {
         // GET REQUEST GETS 1 POINT, THE REST IS 5
         const rateLimit = await Rate_Limit.findByIdAndUpdate(
