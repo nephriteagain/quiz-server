@@ -1,6 +1,7 @@
 const request = require('supertest')
 const app = require('../app')
 const mongoDB = require('../lib/testHelpers/mongoDb')
+const { sessionStore } = require('../db/index')
 const {
     e2eUserId
 } = require('./helpers')
@@ -14,6 +15,8 @@ describe('Profile', () => {
 
     afterAll(async () => {
         await mongoDB.disconnect();
+        await sessionStore.close()
+
     });
 
 

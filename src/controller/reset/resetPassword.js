@@ -4,12 +4,9 @@ const nodemailer = require("nodemailer");
 const User = require("../../db/Schema/UserSchema");
 const Password_Reset = require("../../db/Schema/PasswordResetSchema");
 
-const { hashPassword } = require("../../lib/utils/loginHelper");
+const loginHelper = require("../../lib/utils/loginHelper");
 
-const {
-    generateCode,
-    generateRandomString,
-} = require("../../lib/utils/codeGenerator");
+const codeGen = require("../../lib/utils/codeGenerator");
 
 async function resetPassword(req, res) {
     if (!req.body?.email) {
@@ -18,8 +15,8 @@ async function resetPassword(req, res) {
 
     const { email } = req.body;
 
-    const newCode = generateCode();
-    const codeId = generateRandomString();
+    const newCode = codeGen.generateCode();
+    const codeId = codeGen.generateRandomString();
 
     try {
         const isEmailExist = await User.findOne({ email: email });
@@ -49,7 +46,7 @@ async function resetPassword(req, res) {
             html: `<p>password rest code: ${newCode}</p>`,
         };
 
-        const hashedPw = hashPassword(newCode);
+        const hashedPw = loginHelper.hashPassword(newCode);
         const newPassCodeReset = new Password_Reset({
             code: hashedPw,
             codeId: codeId,

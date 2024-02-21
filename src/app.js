@@ -44,10 +44,11 @@ app.use(
     }),
 );
 
-app.use((req, res, next) => {
-    console.log(req.method, req.url, req.query);
-    next();
-});
+// NOTE: undo this after production
+// app.use((req, res, next) => {
+//     console.log(req.method, req.url, req.query);
+//     next();
+// });
 
 // rate limit TODO:
 app.use(rateLimitChecker);

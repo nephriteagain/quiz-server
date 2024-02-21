@@ -1,6 +1,6 @@
 /**
  * @description generates a random 6 digit numeric string
- * @returns {string} a 6 digit numberic string
+ * @returns {string} a 6 digit numeric string
  */
 function generateCode() {
     let code = "";

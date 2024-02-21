@@ -1,6 +1,8 @@
 const request = require('supertest')
 const app = require('../app')
 const mongoDB = require('../lib/testHelpers/mongoDb')
+const { sessionStore } = require('../db/index')
+
 const {generateObjectId} = require('../../src/lib/testHelpers/generateObjectId')
 const {
     sessionCookie, 
@@ -18,6 +20,7 @@ describe("Quiz route", () => {
 
     afterAll(async () => {
         await mongoDB.disconnect();
+        await sessionStore.close()
     });
 
 
